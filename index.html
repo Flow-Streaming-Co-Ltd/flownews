@@ -127,7 +127,7 @@
         .region-filter-container .region-main-toggle:hover,
         .region-filter-container .continent-toggle:hover { color: var(--accent-color); }
         .region-filter-container .continent-toggle.active-continent,
-        .region-filter-container .country-link.active-country { color: var(--sidebar-accent-color); font-weight: bold; }
+        .region-filter-container .country-link.active-country { color: #000000; font-weight: bold; }
         .region-filter-container .toggle-icon { font-size: 20px; transition: transform 0.2s ease-in-out; }
         .region-filter-container .region-main-toggle.expanded .toggle-icon,
         .region-filter-container .continent-toggle.expanded .toggle-icon { transform: rotate(90deg); }
@@ -236,7 +236,7 @@
             <form id="sidebar-search-form" class="sidebar-search-container" role="search">
                 <div class="sidebar-search-input-wrapper">
                     <span class="material-symbols-outlined search-icon-prefix">search</span>
-                    <input type="search" id="sidebar-search-input" placeholder="Search news (Webz.io)..." aria-label="Search news">
+                    <input type="search" id="sidebar-search-input" placeholder="Search news..." aria-label="Search news">
                 </div>
                 <button type="submit" style="display:none;" aria-hidden="true">Search</button>
             </form>
@@ -402,7 +402,7 @@
             }
             
             async function fetchNews() {
-                newsContainer.innerHTML = '<p class="loading-message">Loading news (Webz.io)...</p>';
+                newsContainer.innerHTML = '<p class="loading-message">Loading news...</p>';
                 let query = '';
                 let fetchDescription = "Latest News";
                 const pageSize = 10;
