@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flow NEWS | Your Tuning to #1 News Sites</title>
+    <title>Flow NEWS | Your #1 News Source</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
@@ -14,7 +14,8 @@
             --bg-color: #ffffff;
             --text-color: #121212;
             --border-color: #e0e0e0;
-            --accent-color: #121212;
+            --accent-color: #121212; /* Main accent for links, active states */
+            --sidebar-accent-color: #007bff; /* Specific accent for sidebar region/country active state */
             --header-bg: #f8f9fa;
             --card-bg: #ffffff;
             --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -26,6 +27,7 @@
             --text-color: #e0e0e0;
             --border-color: #333333;
             --accent-color: #e0e0e0;
+            --sidebar-accent-color: #6cb2f7;
             --header-bg: #1e1e1e;
             --card-bg: #1e1e1e;
             --card-shadow: 0 2px 8px rgba(255,255,255,0.05);
@@ -81,12 +83,15 @@
             transition: transform 0.3s ease-in-out, background-color 0.3s;
             z-index: 1100; padding: 20px; display: flex; flex-direction: column;
             border-right: 1px solid var(--border-color);
+            overflow-y: auto; /* Allow sidebar to scroll if content is long */
         }
         .dark-mode .sidebar { box-shadow: 2px 0 10px rgba(255,255,255,0.05); }
         .sidebar.open { transform: translateX(0); }
-        .sidebar-header { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+        .sidebar-header { display: flex; justify-content: flex-end; margin-bottom: 20px; flex-shrink: 0; }
         .close-menu-icon { font-size: 28px; cursor: pointer; color: var(--text-color); }
         .close-menu-icon:hover { color: var(--accent-color); }
+        .sidebar-content { flex-grow: 1; overflow-y: auto; }
+
 
         /* Sidebar Search - Icon Inside */
         .sidebar-search-container { margin-bottom: 20px; }
@@ -94,48 +99,83 @@
             display: flex;
             align-items: center;
             border: 1px solid var(--border-color);
-            border-radius: 20px; /* Rounded corners for the search bar */
-            padding: 0 12px; /* Horizontal padding for the wrapper */
+            border-radius: 20px;
+            padding: 0 12px;
             background-color: var(--bg-color);
             transition: border-color 0.3s, background-color 0.3s;
         }
         .dark-mode .sidebar-search-input-wrapper {
-             background-color: var(--card-bg); /* Darker input bg in dark mode */
+             background-color: var(--card-bg);
         }
-        .sidebar-search-input-wrapper:focus-within { /* Highlight when input inside is focused */
+        .sidebar-search-input-wrapper:focus-within {
             border-color: var(--accent-color);
-            box-shadow: 0 0 0 1px var(--accent-color); /* Subtle focus ring */
+            box-shadow: 0 0 0 1px var(--accent-color);
         }
         .search-icon-prefix {
-            margin-right: 8px; /* Space between icon and text input */
+            margin-right: 8px;
             color: var(--text-color);
-            opacity: 0.6; /* Slightly subdued icon */
-            font-size: 22px; /* Adjust icon size if needed */
+            opacity: 0.6;
+            font-size: 22px;
         }
         .sidebar-search-input-wrapper input[type="search"] {
-            flex-grow: 1; /* Takes remaining space */
-            padding: 10px 0; /* Vertical padding inside input, horizontal handled by wrapper */
+            flex-grow: 1;
+            padding: 10px 0;
             border: none;
             background-color: transparent;
             color: var(--text-color);
             font-family: "Inter", sans-serif;
             font-size: 0.9em;
-            outline: none; /* Remove default outline, focus handled by wrapper */
+            outline: none;
         }
-        /* Clear button for search input (WebKit/Blink) */
         .sidebar-search-input-wrapper input[type="search"]::-webkit-search-cancel-button,
         .sidebar-search-input-wrapper input[type="search"]::-webkit-search-decoration {
             -webkit-appearance: none;
             appearance: none;
         }
 
+        /* Region Filter Styles */
+        .region-filter-container { margin-bottom: 20px; border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .region-filter-container .region-main-toggle,
+        .region-filter-container .continent-toggle {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 0; text-decoration: none; color: var(--text-color);
+            font-weight: 700; font-size: 1.1em; cursor: pointer;
+            transition: color 0.2s;
+        }
+        .region-filter-container .region-main-toggle:hover,
+        .region-filter-container .continent-toggle:hover { color: var(--accent-color); }
+        .region-filter-container .continent-toggle.active-continent,
+        .region-filter-container .country-link.active-country {
+            color: #00000;
+            font-weight: bold;
+        }
 
+        .region-filter-container .toggle-icon { font-size: 20px; transition: transform 0.2s ease-in-out; }
+        .region-filter-container .region-main-toggle.expanded .toggle-icon,
+        .region-filter-container .continent-toggle.expanded .toggle-icon { transform: rotate(90deg); }
+
+        .region-filter-container ul { list-style: none; padding-left: 0; /* Removed default padding */ }
+        .region-filter-container .continent-list,
+        .region-filter-container .country-list { display: none; padding-left: 15px; /* Indentation for sub-levels */ }
+        .region-filter-container .continent-list.expanded,
+        .region-filter-container .country-list.expanded { display: block; }
+
+        .region-filter-container .country-link {
+            display: block; padding: 8px 0; text-decoration: none;
+            color: var(--text-color); font-size: 0.95em; transition: color 0.2s;
+            padding-left: 10px; /* Further indent country links */
+        }
+        .region-filter-container .country-link:hover { color: var(--accent-color); }
+
+
+        .sidebar-nav { border-top: 1px solid var(--border-color); padding-top: 15px; }
         .sidebar-nav ul { list-style: none; }
-        .sidebar-nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-color); font-weight: 700; font-size: 1.5em; transition: color 0.2s; }
+        .sidebar-nav li a { display: block; padding: 12px 0; text-decoration: none; color: var(--text-color); font-weight: 700; font-size: 1.1em; transition: color 0.2s; }
         .sidebar-nav li a:hover { color: var(--accent-color); }
         .flow-plus-link { font-family: "Cal Sans", "Inter", sans-serif; font-weight: 700; }
         .flow-plus-link .plus-symbol { color: black; font-weight: bold; }
         .dark-mode .flow-plus-link .plus-symbol { color: white; }
+
 
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -162,7 +202,7 @@
             text-align: center; font-size: 1.2em; padding: 40px 20px; color: var(--text-color);
         }
         .results-title {
-            padding: 20px 20px 0; /* Less padding for title */
+            padding: 20px 20px 0;
             font-family: "Playfair Display", serif;
             font-weight: bold;
         }
@@ -231,9 +271,14 @@
                     <span class="material-symbols-outlined search-icon-prefix">search</span>
                     <input type="search" id="sidebar-search-input" placeholder="Search news..." aria-label="Search news">
                 </div>
-                <!-- Hidden submit button for accessibility / form submission, though JS handles primary -->
                 <button type="submit" style="display:none;" aria-hidden="true">Search</button>
             </form>
+
+            <!-- Region Filter Section -->
+            <div id="region-filter" class="region-filter-container">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+
             <nav class="sidebar-nav">
                 <ul>
                     <li><a href="about_us.html">About Us</a></li>
@@ -258,8 +303,6 @@
         </ul>
     </nav>
 
-    <!-- News Source Logo Filter Bar REMOVED -->
-
     <main id="news-container">
         <p class="loading-message">Loading news...</p>
     </main>
@@ -270,12 +313,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const API_KEY = 'e88537d1b6259acf1bd0ce0c2c579e90';
-            const NEWS_API_URL_BASE = 'https://gnews.io/api/v4/';
+            const API_KEY = 'ede6b5e9fe8040a789ac82deb0cc8924'; // NewsAPI.org Key
+            const NEWS_API_URL_BASE = 'https://newsapi.org/v2/';
 
             const newsContainer = document.getElementById('news-container');
             const categoryNavList = document.querySelector('.category-nav ul');
-            // Source Filter Bar elements removed
             const themeToggleButton = document.getElementById('theme-toggle');
             const themeIcon = themeToggleButton.querySelector('.material-symbols-outlined');
             const currentDateHeaderElement = document.getElementById('current-date');
@@ -287,10 +329,21 @@
             const overlay = document.getElementById('overlay');
             const sidebarSearchForm = document.getElementById('sidebar-search-form');
             const sidebarSearchInput = document.getElementById('sidebar-search-input');
+            const regionFilterContainer = document.getElementById('region-filter');
 
             let currentCategory = 'general';
             let currentSearchQuery = '';
-            // currentSourceDomain removed
+            let currentContinentQuery = ''; // For searching by continent name
+            let currentCountryCode = ''; // For fetching by country code
+
+            const regionsAndCountriesData = {
+                "Asia": { "China": "cn", "India": "in", "Japan": "jp", "South Korea": "kr", "Indonesia": "id", "Saudi Arabia": "sa", "Singapore": "sg", "UAE": "ae", "Philippines": "ph", "Thailand": "th", "Vietnam": "vn", "Israel": "il", "Turkey": "tr" },
+                "Africa": { "Egypt": "eg", "Nigeria": "ng", "South Africa": "za", "Kenya": "ke", "Morocco": "ma", "Algeria": "dz", "Ghana": "gh" },
+                "North America": { "United States": "us", "Canada": "ca", "Mexico": "mx" },
+                "South America": { "Brazil": "br", "Argentina": "ar", "Colombia": "co", "Peru": "pe", "Chile": "cl", "Venezuela": "ve" },
+                "Europe": { "United Kingdom": "gb", "Germany": "de", "France": "fr", "Italy": "it", "Spain": "es", "Russia": "ru", "Netherlands": "nl", "Switzerland": "ch", "Sweden": "se", "Norway": "no", "Poland": "pl", "Belgium": "be", "Austria": "at", "Ireland": "ie", "Portugal": "pt", "Ukraine": "ua" },
+                "Oceania": { "Australia": "au", "New Zealand": "nz" }
+            };
 
             function setInitialTheme() {
                 const savedTheme = localStorage.getItem('theme');
@@ -331,47 +384,135 @@
                 const searchTerm = sidebarSearchInput.value.trim();
                 if (searchTerm) {
                     currentSearchQuery = searchTerm;
-                    currentCategory = null; // Clear category when searching
+                    currentCategory = null;
+                    currentContinentQuery = '';
+                    currentCountryCode = '';
                     updateActiveStates();
                     fetchNews();
-                    sidebarSearchInput.value = ''; // Clear input after search
+                    sidebarSearchInput.value = '';
                     closeSidebar();
-                } else { // If search term is empty, maybe revert to current category or general
-                    currentSearchQuery = ''; // Ensure query is cleared
-                    if (!currentCategory) currentCategory = 'general'; // Default if no category was active
+                } else { // If search is cleared, revert to default or last active category/region
+                    currentSearchQuery = '';
+                    if (!currentCategory && !currentContinentQuery && !currentCountryCode) currentCategory = 'general';
                     updateActiveStates();
                     fetchNews();
                     closeSidebar();
                 }
             });
 
+            function populateRegionsMenu() {
+                if (!regionFilterContainer) return;
+
+                let html = `<a href="#" class="region-main-toggle" id="region-main-toggler">Region <span class="material-symbols-outlined toggle-icon">chevron_right</span></a>`;
+                html += `<ul class="continent-list" id="continents-ul">`;
+
+                for (const continent in regionsAndCountriesData) {
+                    html += `<li>`;
+                    html += `<a href="#" class="continent-toggle" data-continent="${continent}">${continent} <span class="material-symbols-outlined toggle-icon">chevron_right</span></a>`;
+                    html += `<ul class="country-list">`;
+                    for (const countryName in regionsAndCountriesData[continent]) {
+                        const countryCode = regionsAndCountriesData[continent][countryName];
+                        html += `<li><a href="#" class="country-link" data-country-code="${countryCode}" data-country-name="${countryName}" data-parent-continent="${continent}">${countryName}</a></li>`;
+                    }
+                    html += `</ul></li>`;
+                }
+                html += `</ul>`;
+                regionFilterContainer.innerHTML = html;
+
+                // Add event listeners for toggles
+                document.getElementById('region-main-toggler').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.classList.toggle('expanded');
+                    document.getElementById('continents-ul').classList.toggle('expanded');
+                });
+
+                regionFilterContainer.querySelectorAll('.continent-toggle').forEach(toggle => {
+                    toggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const continentName = this.dataset.continent;
+                        
+                        // Toggle expansion of country list for this continent
+                        const alreadyExpanded = this.classList.contains('expanded');
+                        // Collapse all other country lists
+                        regionFilterContainer.querySelectorAll('.country-list.expanded').forEach(cl => cl.classList.remove('expanded'));
+                        regionFilterContainer.querySelectorAll('.continent-toggle.expanded').forEach(ct => {
+                            if (ct !== this) ct.classList.remove('expanded');
+                        });
+
+                        if (!alreadyExpanded) {
+                            this.classList.add('expanded');
+                            this.nextElementSibling.classList.add('expanded');
+                        } else {
+                             this.classList.remove('expanded');
+                             this.nextElementSibling.classList.remove('expanded');
+                        }
+                        
+                        // Fetch news for the continent
+                        currentContinentQuery = continentName;
+                        currentCountryCode = '';
+                        currentCategory = null;
+                        currentSearchQuery = '';
+                        updateActiveStates();
+                        fetchNews();
+                        // Do not close sidebar on continent click, allow country selection
+                    });
+                });
+
+                regionFilterContainer.querySelectorAll('.country-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        currentCountryCode = this.dataset.countryCode;
+                        currentContinentQuery = this.dataset.parentContinent; // Keep parent continent active for display
+                        currentCategory = null;
+                        currentSearchQuery = '';
+                        updateActiveStates();
+                        fetchNews();
+                        closeSidebar();
+                    });
+                });
+            }
+            
             async function fetchNews() {
                 newsContainer.innerHTML = '<p class="loading-message">Loading news...</p>';
                 let url;
                 let fetchDescription = "Latest News";
+                const pageSize = 10;
 
-                if (currentSearchQuery) {
-                    url = `${NEWS_API_URL_BASE}search?q=${encodeURIComponent(currentSearchQuery)}&token=${API_KEY}&lang=en&max=10&sortby=relevance`;
+                if (currentCountryCode) {
+                    // Fetch by country code (top headlines)
+                    url = `${NEWS_API_URL_BASE}top-headlines?apiKey=${API_KEY}&country=${currentCountryCode}&pageSize=${pageSize}`;
+                    const countryLink = regionFilterContainer.querySelector(`.country-link[data-country-code="${currentCountryCode}"]`);
+                    fetchDescription = countryLink ? `Top Headlines in ${countryLink.dataset.countryName}` : `Top Headlines`;
+                } else if (currentContinentQuery) {
+                    // Fetch by continent name (search everything)
+                    url = `${NEWS_API_URL_BASE}everything?q=${encodeURIComponent(currentContinentQuery)}&apiKey=${API_KEY}&language=en&pageSize=${pageSize}&sortBy=relevancy`;
+                    fetchDescription = `News about ${currentContinentQuery}`;
+                } else if (currentSearchQuery) {
+                    // Standard search
+                    url = `${NEWS_API_URL_BASE}everything?q=${encodeURIComponent(currentSearchQuery)}&apiKey=${API_KEY}&language=en&pageSize=${pageSize}&sortBy=relevancy`;
                     fetchDescription = `Search results for: "${currentSearchQuery}"`;
                 } else if (currentCategory) {
-                    let effectiveCategory = currentCategory === 'general' ? 'general' : currentCategory;
-                    url = `${NEWS_API_URL_BASE}top-headlines?token=${API_KEY}&lang=en&topic=${effectiveCategory}&max=10`;
+                    // Standard category
+                    let apiCategory = (currentCategory === 'world' || currentCategory === 'nation') ? 'general' : currentCategory;
+                    url = `${NEWS_API_URL_BASE}top-headlines?apiKey=${API_KEY}&language=en&category=${apiCategory}&pageSize=${pageSize}`;
                     const catLink = categoryNavList.querySelector(`a[data-category="${currentCategory}"]`);
                     fetchDescription = catLink ? `${catLink.textContent} News` : "Top News";
+                    if (currentCategory === 'general') fetchDescription = "Top News";
                 } else {
-                    // Fallback if somehow no state is set (should not happen)
-                    currentCategory = 'general';
-                    url = `${NEWS_API_URL_BASE}top-headlines?token=${API_KEY}&lang=en&topic=general&max=10`;
+                    // Fallback to general top news
+                    currentCategory = 'general'; // Ensure this is set for updateActiveStates
+                    url = `${NEWS_API_URL_BASE}top-headlines?apiKey=${API_KEY}&language=en&category=general&pageSize=${pageSize}`;
                     fetchDescription = "Top News";
                 }
-
+                
                 try {
                     const response = await fetch(url);
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({ errors: ["Unknown API error"] }));
-                        throw new Error(`HTTP ${response.status}: ${errorData.errors ? errorData.errors.join(', ') : response.statusText}`);
-                    }
                     const data = await response.json();
+
+                    if (!response.ok || data.status === "error") {
+                        const errorMessage = data.message || `API request failed with status ${response.status}`;
+                        throw new Error(errorMessage);
+                    }
                     displayNews(data.articles, fetchDescription);
                 } catch (error) {
                     console.error('Error fetching news:', error);
@@ -381,42 +522,40 @@
 
             function displayNews(articles, title) {
                 newsContainer.innerHTML = '';
-
                 if (title) {
                     const titleElement = document.createElement('h1');
-                    titleElement.classList.add('results-title'); // Changed class name
+                    titleElement.classList.add('results-title');
                     titleElement.textContent = title;
                     newsContainer.appendChild(titleElement);
                 }
 
                 if (!articles || articles.length === 0) {
-                    const noArticlesMessage = document.createElement('p');
-                    noArticlesMessage.classList.add('loading-message');
-                    noArticlesMessage.textContent = 'No articles found.';
-                    newsContainer.appendChild(noArticlesMessage);
+                    newsContainer.appendChild(Object.assign(document.createElement('p'), {
+                        className: 'loading-message', textContent: 'No articles found.'
+                    }));
                     return;
                 }
 
                 articles.forEach(article => {
+                    if (!article.title || !article.url) return;
                     const articleElement = document.createElement('article');
                     articleElement.classList.add('news-article');
-                    let imageHtml = article.image ? `<img src="${article.image}" alt="${article.title}" onerror="this.style.display='none';">` : '';
+                    let imageHtml = article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title || ''}" onerror="this.style.display='none';">` : '';
                     let publishedDate = 'N/A';
                     if (article.publishedAt) {
                         try {
-                            publishedDate = new Date(article.publishedAt).toLocaleDateString(undefined, {
-                                year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
-                            });
+                            publishedDate = new Date(article.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
                         } catch(e) { publishedDate = article.publishedAt; }
                     }
                     const description = article.description || 'No description available.';
                     const truncatedDescription = description.length > 200 ? description.substring(0, 200) + '...' : description;
+                    const sourceName = (article.source && article.source.name) ? article.source.name : 'N/A';
 
                     articleElement.innerHTML = `
                         ${imageHtml}
                         <h2><a href="${article.url}" target="_blank" rel="noopener noreferrer">${article.title}</a></h2>
                         <div class="article-meta">
-                            <span>Source: ${article.source.name}</span>
+                            <span>Source: ${sourceName}</span>
                             <span>Published: ${publishedDate}</span>
                         </div>
                         <p class="description">${truncatedDescription}</p>
@@ -427,34 +566,52 @@
             }
 
             function updateActiveStates() {
-                // Update category tabs
+                // Category Nav
                 categoryNavList.querySelectorAll('a').forEach(link => {
-                    link.classList.toggle('active', link.dataset.category === currentCategory);
+                    link.classList.toggle('active', link.dataset.category === currentCategory && !currentCountryCode && !currentContinentQuery && !currentSearchQuery);
                 });
-                // Source logo update logic removed
+
+                // Region Filter in Sidebar
+                if(regionFilterContainer) {
+                    regionFilterContainer.querySelectorAll('.continent-toggle, .country-link').forEach(link => link.classList.remove('active-continent', 'active-country'));
+                    
+                    if (currentCountryCode) {
+                        const activeCountryLink = regionFilterContainer.querySelector(`.country-link[data-country-code="${currentCountryCode}"]`);
+                        if (activeCountryLink) {
+                            activeCountryLink.classList.add('active-country');
+                            // Also mark its parent continent as active for context, but not as the primary fetch source
+                            const parentContinentToggle = activeCountryLink.closest('ul.country-list.expanded')?.previousElementSibling;
+                            if (parentContinentToggle && parentContinentToggle.classList.contains('continent-toggle')) {
+                                parentContinentToggle.classList.add('active-continent'); // Visually show parent is active
+                            }
+                        }
+                    } else if (currentContinentQuery && !currentCountryCode) { // Only if continent is the primary query
+                        const activeContinentToggle = regionFilterContainer.querySelector(`.continent-toggle[data-continent="${currentContinentQuery}"]`);
+                        if (activeContinentToggle) activeContinentToggle.classList.add('active-continent');
+                    }
+                }
             }
 
             categoryNavList.addEventListener('click', (event) => {
                 event.preventDefault();
                 const targetLink = event.target.closest('a');
-                if (targetLink && targetLink.dataset.category !== currentCategory) {
-                    currentCategory = targetLink.dataset.category;
-                    currentSearchQuery = ''; // Clear search when category changes
-                    updateActiveStates();
-                    fetchNews();
-                } else if (targetLink && targetLink.dataset.category === currentCategory && currentSearchQuery) {
-                    // If clicking the current active category but a search was active, clear search and reload category
-                    currentSearchQuery = '';
-                    updateActiveStates();
-                    fetchNews();
+                if (targetLink && targetLink.dataset.category) {
+                    const newCategory = targetLink.dataset.category;
+                    if (newCategory !== currentCategory || currentSearchQuery || currentContinentQuery || currentCountryCode) {
+                        currentCategory = newCategory;
+                        currentSearchQuery = '';
+                        currentContinentQuery = '';
+                        currentCountryCode = '';
+                        updateActiveStates();
+                        fetchNews();
+                    }
                 }
             });
-
-            // Source Filter Bar event listener removed
 
             // Initial Load
             setInitialTheme();
             displayDate();
+            populateRegionsMenu(); // Populate the new menu
             updateActiveStates();
             fetchNews();
         });
