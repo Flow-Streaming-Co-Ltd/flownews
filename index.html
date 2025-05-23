@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flow NEWS | Your #1 News Source</title>
+    <title>Flow NEWS | #1 News Source</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap" rel="stylesheet">
@@ -83,7 +83,7 @@
             transition: transform 0.3s ease-in-out, background-color 0.3s;
             z-index: 1100; padding: 20px; display: flex; flex-direction: column;
             border-right: 1px solid var(--border-color);
-            overflow-y: auto; /* Allow sidebar to scroll if content is long */
+            overflow-y: auto;
         }
         .dark-mode .sidebar { box-shadow: 2px 0 10px rgba(255,255,255,0.05); }
         .sidebar.open { transform: translateX(0); }
@@ -92,8 +92,6 @@
         .close-menu-icon:hover { color: var(--accent-color); }
         .sidebar-content { flex-grow: 1; overflow-y: auto; }
 
-
-        /* Sidebar Search - Icon Inside */
         .sidebar-search-container { margin-bottom: 20px; }
         .sidebar-search-input-wrapper {
             display: flex;
@@ -104,69 +102,45 @@
             background-color: var(--bg-color);
             transition: border-color 0.3s, background-color 0.3s;
         }
-        .dark-mode .sidebar-search-input-wrapper {
-             background-color: var(--card-bg);
-        }
+        .dark-mode .sidebar-search-input-wrapper { background-color: var(--card-bg); }
         .sidebar-search-input-wrapper:focus-within {
             border-color: var(--accent-color);
             box-shadow: 0 0 0 1px var(--accent-color);
         }
-        .search-icon-prefix {
-            margin-right: 8px;
-            color: var(--text-color);
-            opacity: 0.6;
-            font-size: 22px;
-        }
+        .search-icon-prefix { margin-right: 8px; color: var(--text-color); opacity: 0.6; font-size: 22px; }
         .sidebar-search-input-wrapper input[type="search"] {
-            flex-grow: 1;
-            padding: 10px 0;
-            border: none;
-            background-color: transparent;
-            color: var(--text-color);
-            font-family: "Inter", sans-serif;
-            font-size: 0.9em;
-            outline: none;
+            flex-grow: 1; padding: 10px 0; border: none; background-color: transparent;
+            color: var(--text-color); font-family: "Inter", sans-serif; font-size: 0.9em; outline: none;
         }
         .sidebar-search-input-wrapper input[type="search"]::-webkit-search-cancel-button,
         .sidebar-search-input-wrapper input[type="search"]::-webkit-search-decoration {
-            -webkit-appearance: none;
-            appearance: none;
+            -webkit-appearance: none; appearance: none;
         }
 
-        /* Region Filter Styles */
         .region-filter-container { margin-bottom: 20px; border-top: 1px solid var(--border-color); padding-top: 15px; }
         .region-filter-container .region-main-toggle,
         .region-filter-container .continent-toggle {
             display: flex; justify-content: space-between; align-items: center;
             padding: 10px 0; text-decoration: none; color: var(--text-color);
-            font-weight: 700; font-size: 1.1em; cursor: pointer;
-            transition: color 0.2s;
+            font-weight: 700; font-size: 1.1em; cursor: pointer; transition: color 0.2s;
         }
         .region-filter-container .region-main-toggle:hover,
         .region-filter-container .continent-toggle:hover { color: var(--accent-color); }
         .region-filter-container .continent-toggle.active-continent,
-        .region-filter-container .country-link.active-country {
-            color: #00000;
-            font-weight: bold;
-        }
-
+        .region-filter-container .country-link.active-country { color: var(--sidebar-accent-color); font-weight: bold; }
         .region-filter-container .toggle-icon { font-size: 20px; transition: transform 0.2s ease-in-out; }
         .region-filter-container .region-main-toggle.expanded .toggle-icon,
         .region-filter-container .continent-toggle.expanded .toggle-icon { transform: rotate(90deg); }
-
-        .region-filter-container ul { list-style: none; padding-left: 0; /* Removed default padding */ }
+        .region-filter-container ul { list-style: none; padding-left: 0; }
         .region-filter-container .continent-list,
-        .region-filter-container .country-list { display: none; padding-left: 15px; /* Indentation for sub-levels */ }
+        .region-filter-container .country-list { display: none; padding-left: 15px; }
         .region-filter-container .continent-list.expanded,
         .region-filter-container .country-list.expanded { display: block; }
-
         .region-filter-container .country-link {
             display: block; padding: 8px 0; text-decoration: none;
-            color: var(--text-color); font-size: 0.95em; transition: color 0.2s;
-            padding-left: 10px; /* Further indent country links */
+            color: var(--text-color); font-size: 0.95em; transition: color 0.2s; padding-left: 10px;
         }
         .region-filter-container .country-link:hover { color: var(--accent-color); }
-
 
         .sidebar-nav { border-top: 1px solid var(--border-color); padding-top: 15px; }
         .sidebar-nav ul { list-style: none; }
@@ -175,7 +149,6 @@
         .flow-plus-link { font-family: "Cal Sans", "Inter", sans-serif; font-weight: 700; }
         .flow-plus-link .plus-symbol { color: black; font-weight: bold; }
         .dark-mode .flow-plus-link .plus-symbol { color: white; }
-
 
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -201,11 +174,7 @@
         .loading-message, .error-message, .results-title {
             text-align: center; font-size: 1.2em; padding: 40px 20px; color: var(--text-color);
         }
-        .results-title {
-            padding: 20px 20px 0;
-            font-family: "Playfair Display", serif;
-            font-weight: bold;
-        }
+        .results-title { padding: 20px 20px 0; font-family: "Playfair Display", serif; font-weight: bold; }
 
         .news-article {
             background-color: var(--card-bg); border: 1px solid var(--border-color);
@@ -237,9 +206,7 @@
             .news-article h2 { font-size: 1.5em; } #news-container { padding: 0 10px; }
             .sidebar { width: 250px; }
         }
-        @media (max-width: 480px) {
-            .category-nav li { margin: 0 10px; }
-        }
+        @media (max-width: 480px) { .category-nav li { margin: 0 10px; } }
     </style>
 </head>
 <body>
@@ -269,15 +236,12 @@
             <form id="sidebar-search-form" class="sidebar-search-container" role="search">
                 <div class="sidebar-search-input-wrapper">
                     <span class="material-symbols-outlined search-icon-prefix">search</span>
-                    <input type="search" id="sidebar-search-input" placeholder="Search news..." aria-label="Search news">
+                    <input type="search" id="sidebar-search-input" placeholder="Search news (Webz.io)..." aria-label="Search news">
                 </div>
                 <button type="submit" style="display:none;" aria-hidden="true">Search</button>
             </form>
 
-            <!-- Region Filter Section -->
-            <div id="region-filter" class="region-filter-container">
-                <!-- Content will be populated by JavaScript -->
-            </div>
+            <div id="region-filter" class="region-filter-container"></div>
 
             <nav class="sidebar-nav">
                 <ul>
@@ -313,8 +277,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const API_KEY = 'ede6b5e9fe8040a789ac82deb0cc8924'; // NewsAPI.org Key
-            const NEWS_API_URL_BASE = 'https://newsapi.org/v2/';
+            const API_KEY = 'efefd622-9ef0-46bc-b2c7-b5601b6d8f42'; // Webz.io API Key
+            const NEWS_API_URL_BASE = 'https://api.webz.io/newsApiLite'; // Webz.io News API Lite endpoint
 
             const newsContainer = document.getElementById('news-container');
             const categoryNavList = document.querySelector('.category-nav ul');
@@ -333,8 +297,10 @@
 
             let currentCategory = 'general';
             let currentSearchQuery = '';
-            let currentContinentQuery = ''; // For searching by continent name
-            let currentCountryCode = ''; // For fetching by country code
+            let currentContinentQuery = '';
+            let currentCountryCode = '';
+            let currentCountryName = '';
+
 
             const regionsAndCountriesData = {
                 "Asia": { "China": "cn", "India": "in", "Japan": "jp", "South Korea": "kr", "Indonesia": "id", "Saudi Arabia": "sa", "Singapore": "sg", "UAE": "ae", "Philippines": "ph", "Thailand": "th", "Vietnam": "vn", "Israel": "il", "Turkey": "tr" },
@@ -342,7 +308,7 @@
                 "North America": { "United States": "us", "Canada": "ca", "Mexico": "mx" },
                 "South America": { "Brazil": "br", "Argentina": "ar", "Colombia": "co", "Peru": "pe", "Chile": "cl", "Venezuela": "ve" },
                 "Europe": { "United Kingdom": "gb", "Germany": "de", "France": "fr", "Italy": "it", "Spain": "es", "Russia": "ru", "Netherlands": "nl", "Switzerland": "ch", "Sweden": "se", "Norway": "no", "Poland": "pl", "Belgium": "be", "Austria": "at", "Ireland": "ie", "Portugal": "pt", "Ukraine": "ua" },
-                "Oceania": { "Australia": "au", "New Zealand": "nz" }
+                "Oceania": { "Australia": "au", "New Zealand": "nz" } // Changed from Antarctica
             };
 
             function setInitialTheme() {
@@ -384,32 +350,21 @@
                 const searchTerm = sidebarSearchInput.value.trim();
                 if (searchTerm) {
                     currentSearchQuery = searchTerm;
-                    currentCategory = null;
-                    currentContinentQuery = '';
-                    currentCountryCode = '';
-                    updateActiveStates();
-                    fetchNews();
-                    sidebarSearchInput.value = '';
-                    closeSidebar();
-                } else { // If search is cleared, revert to default or last active category/region
+                    currentCategory = null; currentContinentQuery = ''; currentCountryCode = ''; currentCountryName = '';
+                    updateActiveStates(); fetchNews(); sidebarSearchInput.value = ''; closeSidebar();
+                } else {
                     currentSearchQuery = '';
                     if (!currentCategory && !currentContinentQuery && !currentCountryCode) currentCategory = 'general';
-                    updateActiveStates();
-                    fetchNews();
-                    closeSidebar();
+                    updateActiveStates(); fetchNews(); closeSidebar();
                 }
             });
 
             function populateRegionsMenu() {
                 if (!regionFilterContainer) return;
-
                 let html = `<a href="#" class="region-main-toggle" id="region-main-toggler">Region <span class="material-symbols-outlined toggle-icon">chevron_right</span></a>`;
                 html += `<ul class="continent-list" id="continents-ul">`;
-
                 for (const continent in regionsAndCountriesData) {
-                    html += `<li>`;
-                    html += `<a href="#" class="continent-toggle" data-continent="${continent}">${continent} <span class="material-symbols-outlined toggle-icon">chevron_right</span></a>`;
-                    html += `<ul class="country-list">`;
+                    html += `<li><a href="#" class="continent-toggle" data-continent="${continent}">${continent} <span class="material-symbols-outlined toggle-icon">chevron_right</span></a><ul class="country-list">`;
                     for (const countryName in regionsAndCountriesData[continent]) {
                         const countryCode = regionsAndCountriesData[continent][countryName];
                         html += `<li><a href="#" class="country-link" data-country-code="${countryCode}" data-country-name="${countryName}" data-parent-continent="${continent}">${countryName}</a></li>`;
@@ -419,103 +374,86 @@
                 html += `</ul>`;
                 regionFilterContainer.innerHTML = html;
 
-                // Add event listeners for toggles
                 document.getElementById('region-main-toggler').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    this.classList.toggle('expanded');
-                    document.getElementById('continents-ul').classList.toggle('expanded');
+                    e.preventDefault(); this.classList.toggle('expanded'); document.getElementById('continents-ul').classList.toggle('expanded');
                 });
-
                 regionFilterContainer.querySelectorAll('.continent-toggle').forEach(toggle => {
                     toggle.addEventListener('click', function(e) {
                         e.preventDefault();
                         const continentName = this.dataset.continent;
-                        
-                        // Toggle expansion of country list for this continent
                         const alreadyExpanded = this.classList.contains('expanded');
-                        // Collapse all other country lists
                         regionFilterContainer.querySelectorAll('.country-list.expanded').forEach(cl => cl.classList.remove('expanded'));
-                        regionFilterContainer.querySelectorAll('.continent-toggle.expanded').forEach(ct => {
-                            if (ct !== this) ct.classList.remove('expanded');
-                        });
-
-                        if (!alreadyExpanded) {
-                            this.classList.add('expanded');
-                            this.nextElementSibling.classList.add('expanded');
-                        } else {
-                             this.classList.remove('expanded');
-                             this.nextElementSibling.classList.remove('expanded');
-                        }
+                        regionFilterContainer.querySelectorAll('.continent-toggle.expanded').forEach(ct => { if (ct !== this) ct.classList.remove('expanded'); });
+                        if (!alreadyExpanded) { this.classList.add('expanded'); this.nextElementSibling.classList.add('expanded'); }
+                        else { this.classList.remove('expanded'); this.nextElementSibling.classList.remove('expanded'); }
                         
-                        // Fetch news for the continent
-                        currentContinentQuery = continentName;
-                        currentCountryCode = '';
-                        currentCategory = null;
-                        currentSearchQuery = '';
-                        updateActiveStates();
-                        fetchNews();
-                        // Do not close sidebar on continent click, allow country selection
+                        currentContinentQuery = continentName; currentCountryCode = ''; currentCountryName = ''; currentCategory = null; currentSearchQuery = '';
+                        updateActiveStates(); fetchNews();
                     });
                 });
-
                 regionFilterContainer.querySelectorAll('.country-link').forEach(link => {
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
-                        currentCountryCode = this.dataset.countryCode;
-                        currentContinentQuery = this.dataset.parentContinent; // Keep parent continent active for display
-                        currentCategory = null;
-                        currentSearchQuery = '';
-                        updateActiveStates();
-                        fetchNews();
-                        closeSidebar();
+                        currentCountryCode = this.dataset.countryCode; currentCountryName = this.dataset.countryName;
+                        currentContinentQuery = this.dataset.parentContinent; currentCategory = null; currentSearchQuery = '';
+                        updateActiveStates(); fetchNews(); closeSidebar();
                     });
                 });
             }
             
             async function fetchNews() {
-                newsContainer.innerHTML = '<p class="loading-message">Loading news...</p>';
-                let url;
+                newsContainer.innerHTML = '<p class="loading-message">Loading news (Webz.io)...</p>';
+                let query = '';
                 let fetchDescription = "Latest News";
                 const pageSize = 10;
+                let sortMethod = 'relevancy'; // Default sort for general searches
 
-                if (currentCountryCode) {
-                    // Fetch by country code (top headlines)
-                    url = `${NEWS_API_URL_BASE}top-headlines?apiKey=${API_KEY}&country=${currentCountryCode}&pageSize=${pageSize}`;
-                    const countryLink = regionFilterContainer.querySelector(`.country-link[data-country-code="${currentCountryCode}"]`);
-                    fetchDescription = countryLink ? `Top Headlines in ${countryLink.dataset.countryName}` : `Top Headlines`;
+                if (currentCountryCode && currentCountryName) {
+                    query = `(${currentCountryName} OR "${currentCountryName}") thread.country:${currentCountryCode.toUpperCase()}`;
+                    fetchDescription = `News in ${currentCountryName}`;
+                    sortMethod = 'published'; // Sort by published for country-specific news
                 } else if (currentContinentQuery) {
-                    // Fetch by continent name (search everything)
-                    url = `${NEWS_API_URL_BASE}everything?q=${encodeURIComponent(currentContinentQuery)}&apiKey=${API_KEY}&language=en&pageSize=${pageSize}&sortBy=relevancy`;
+                    query = currentContinentQuery;
                     fetchDescription = `News about ${currentContinentQuery}`;
+                    sortMethod = 'relevancy';
                 } else if (currentSearchQuery) {
-                    // Standard search
-                    url = `${NEWS_API_URL_BASE}everything?q=${encodeURIComponent(currentSearchQuery)}&apiKey=${API_KEY}&language=en&pageSize=${pageSize}&sortBy=relevancy`;
+                    query = currentSearchQuery;
                     fetchDescription = `Search results for: "${currentSearchQuery}"`;
+                    sortMethod = 'relevancy';
                 } else if (currentCategory) {
-                    // Standard category
-                    let apiCategory = (currentCategory === 'world' || currentCategory === 'nation') ? 'general' : currentCategory;
-                    url = `${NEWS_API_URL_BASE}top-headlines?apiKey=${API_KEY}&language=en&category=${apiCategory}&pageSize=${pageSize}`;
                     const catLink = categoryNavList.querySelector(`a[data-category="${currentCategory}"]`);
                     fetchDescription = catLink ? `${catLink.textContent} News` : "Top News";
-                    if (currentCategory === 'general') fetchDescription = "Top News";
+                    if (currentCategory === 'general') {
+                         query = 'top news'; // A broad query for general/top news
+                         fetchDescription = "Top News";
+                    } else if (currentCategory === 'world' || currentCategory === 'nation') {
+                        query = currentCategory + " news"; // e.g., "world news"
+                    }
+                    else {
+                        query = currentCategory; // e.g., "business", "technology"
+                    }
+                    sortMethod = 'published'; // Sort by published for categories
                 } else {
-                    // Fallback to general top news
-                    currentCategory = 'general'; // Ensure this is set for updateActiveStates
-                    url = `${NEWS_API_URL_BASE}top-headlines?apiKey=${API_KEY}&language=en&category=general&pageSize=${pageSize}`;
+                    currentCategory = 'general';
+                    query = 'top news';
                     fetchDescription = "Top News";
+                    sortMethod = 'published';
                 }
                 
+                const url = `${NEWS_API_URL_BASE}?token=${API_KEY}&format=json&q=${encodeURIComponent(query)}&language=english&size=${pageSize}&sort=${sortMethod}`;
+
                 try {
                     const response = await fetch(url);
                     const data = await response.json();
 
-                    if (!response.ok || data.status === "error") {
-                        const errorMessage = data.message || `API request failed with status ${response.status}`;
+                    // Webz.io success usually means data.posts exists. Errors might be in data.message or just a non-200 status.
+                    if (!response.ok || !data.posts) { // Check if posts array exists
+                        const errorMessage = data.message || `API request failed with status ${response.status}. Requests left: ${data.requestsLeft !== undefined ? data.requestsLeft : 'N/A'}`;
                         throw new Error(errorMessage);
                     }
-                    displayNews(data.articles, fetchDescription);
+                    displayNews(data.posts, fetchDescription);
                 } catch (error) {
-                    console.error('Error fetching news:', error);
+                    console.error('Error fetching news from Webz.io:', error);
                     newsContainer.innerHTML = `<p class="error-message">Failed to load news. ${error.message}.</p>`;
                 }
             }
@@ -536,56 +474,60 @@
                     return;
                 }
 
-                articles.forEach(article => {
-                    if (!article.title || !article.url) return;
+                articles.forEach(post => {
+                    if (!post.title || !post.url) return;
                     const articleElement = document.createElement('article');
                     articleElement.classList.add('news-article');
-                    let imageHtml = article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title || ''}" onerror="this.style.display='none';">` : '';
+                    
+                    // Webz.io image: post.thread.main_image
+                    let imageHtml = post.thread && post.thread.main_image ? `<img src="${post.thread.main_image}" alt="${post.title || ''}" onerror="this.style.display='none';">` : '';
+                    
                     let publishedDate = 'N/A';
-                    if (article.publishedAt) {
+                    // Webz.io published: post.published
+                    if (post.published) {
                         try {
-                            publishedDate = new Date(article.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                        } catch(e) { publishedDate = article.publishedAt; }
+                            publishedDate = new Date(post.published).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                        } catch(e) { publishedDate = post.published; }
                     }
-                    const description = article.description || 'No description available.';
+
+                    // Webz.io description: post.text
+                    const description = post.text || 'No description available.';
                     const truncatedDescription = description.length > 200 ? description.substring(0, 200) + '...' : description;
-                    const sourceName = (article.source && article.source.name) ? article.source.name : 'N/A';
+                    
+                    // Webz.io source: post.thread.site or post.author
+                    const sourceName = (post.thread && post.thread.site) ? post.thread.site : (post.author || 'N/A');
 
                     articleElement.innerHTML = `
                         ${imageHtml}
-                        <h2><a href="${article.url}" target="_blank" rel="noopener noreferrer">${article.title}</a></h2>
+                        <h2><a href="${post.url}" target="_blank" rel="noopener noreferrer">${post.title}</a></h2>
                         <div class="article-meta">
                             <span>Source: ${sourceName}</span>
                             <span>Published: ${publishedDate}</span>
                         </div>
-                        <p class="description">${truncatedDescription}</p>
-                        <a href="${article.url}" target="_blank" rel="noopener noreferrer" class="read-more">Read more →</a>
+                        <p class="description"></p>
+                        <a href="${post.url}" target="_blank" rel="noopener noreferrer" class="read-more">Read more →</a>
                     `;
                     newsContainer.appendChild(articleElement);
                 });
             }
 
             function updateActiveStates() {
-                // Category Nav
                 categoryNavList.querySelectorAll('a').forEach(link => {
                     link.classList.toggle('active', link.dataset.category === currentCategory && !currentCountryCode && !currentContinentQuery && !currentSearchQuery);
                 });
 
-                // Region Filter in Sidebar
                 if(regionFilterContainer) {
                     regionFilterContainer.querySelectorAll('.continent-toggle, .country-link').forEach(link => link.classList.remove('active-continent', 'active-country'));
-                    
                     if (currentCountryCode) {
                         const activeCountryLink = regionFilterContainer.querySelector(`.country-link[data-country-code="${currentCountryCode}"]`);
                         if (activeCountryLink) {
                             activeCountryLink.classList.add('active-country');
-                            // Also mark its parent continent as active for context, but not as the primary fetch source
-                            const parentContinentToggle = activeCountryLink.closest('ul.country-list.expanded')?.previousElementSibling;
-                            if (parentContinentToggle && parentContinentToggle.classList.contains('continent-toggle')) {
-                                parentContinentToggle.classList.add('active-continent'); // Visually show parent is active
+                            const parentContinentToggle = activeCountryLink.closest('ul.country-list')?.previousElementSibling; // Might need .expanded if list is not kept open
+                             if (parentContinentToggle && parentContinentToggle.classList.contains('continent-toggle')) {
+                                parentContinentToggle.classList.add('active-continent');
                             }
                         }
-                    } else if (currentContinentQuery && !currentCountryCode) { // Only if continent is the primary query
+                    } else if (currentContinentQuery && !currentCountryCode) {
                         const activeContinentToggle = regionFilterContainer.querySelector(`.continent-toggle[data-continent="${currentContinentQuery}"]`);
                         if (activeContinentToggle) activeContinentToggle.classList.add('active-continent');
                     }
@@ -599,19 +541,15 @@
                     const newCategory = targetLink.dataset.category;
                     if (newCategory !== currentCategory || currentSearchQuery || currentContinentQuery || currentCountryCode) {
                         currentCategory = newCategory;
-                        currentSearchQuery = '';
-                        currentContinentQuery = '';
-                        currentCountryCode = '';
-                        updateActiveStates();
-                        fetchNews();
+                        currentSearchQuery = ''; currentContinentQuery = ''; currentCountryCode = ''; currentCountryName = '';
+                        updateActiveStates(); fetchNews();
                     }
                 }
             });
 
-            // Initial Load
             setInitialTheme();
             displayDate();
-            populateRegionsMenu(); // Populate the new menu
+            populateRegionsMenu();
             updateActiveStates();
             fetchNews();
         });
